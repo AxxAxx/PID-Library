@@ -95,6 +95,14 @@ uint8_t PID_Compute(PID_TypeDef *uPID)
 		
 		uPID->OutputSum     += (uPID->Ki * error);
 		
+		if (uPID->OutputSum > uPID->IMax)
+				{
+					uPID->OutputSum = uPID->IMax;
+				}
+		else if (uPID->OutputSum < uPID->IMin)
+		{
+			uPID->OutputSum = uPID->IMin;
+		}
 		/* ..... Add Proportional on Measurement, if P_ON_M is specified ..... */
 		if (!uPID->POnE)
 		{
@@ -212,6 +220,18 @@ void PID_SetOutputLimits(PID_TypeDef *uPID, double Min, double Max)
 	
 }
 
+/* ~~~~~~~~~~~~~~~~ PID I-windup Limits ~~~~~~~~~~~~~~~~~ */
+void PID_SetILimits(PID_TypeDef *uPID, double Min, double Max)
+{
+	/* ~~~~~~~~~~ Check value ~~~~~~~~~~ */
+	if (Min >= Max)
+	{
+		return;
+	}
+
+	uPID->IMin = Min;
+	uPID->IMax = Max;
+}
 /* ~~~~~~~~~~~~~~~~ PID Tunings ~~~~~~~~~~~~~~~~ */
 void PID_SetTunings(PID_TypeDef *uPID, double Kp, double Ki, double Kd)
 {

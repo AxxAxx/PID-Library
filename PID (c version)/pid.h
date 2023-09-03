@@ -214,6 +214,8 @@ typedef struct
 	double          OutMin;
 	double          OutMax;
 	
+	double          IMin;
+	double          IMax;
 }PID_TypeDef;
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Variables ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
@@ -237,6 +239,8 @@ PIDMode_TypeDef PID_GetMode(PID_TypeDef *uPID);
 /* :::::::::: PID Limits ::::::::::: */
 void PID_SetOutputLimits(PID_TypeDef *uPID, double Min, double Max);
 
+/* :::::::::: PID I-windup Limits ::::::::::: */
+void PID_SetILimits(PID_TypeDef *uPID, double Min, double Max);
 /* :::::::::: PID Tunings :::::::::: */
 void PID_SetTunings(PID_TypeDef *uPID, double Kp, double Ki, double Kd);
 void PID_SetTunings2(PID_TypeDef *uPID, double Kp, double Ki, double Kd, PIDPON_TypeDef POn);
