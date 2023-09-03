@@ -257,6 +257,11 @@ double PID_GetKp(PID_TypeDef *uPID);
 double PID_GetKi(PID_TypeDef *uPID);
 double PID_GetKd(PID_TypeDef *uPID);
 
+/* ::::::: Get PID Parts ::::::: */
+double PID_GetPpart(PID_TypeDef *uPID);
+double PID_GetIpart(PID_TypeDef *uPID);
+double PID_GetDpart(PID_TypeDef *uPID);
+
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ End of the program ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 
 #endif /* __PID_H_ */

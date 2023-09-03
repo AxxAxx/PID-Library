@@ -103,6 +103,7 @@ uint8_t PID_Compute(PID_TypeDef *uPID)
 		{
 			uPID->OutputSum = uPID->IMin;
 		}
+		uPID->DispKi_part = uPID->OutputSum;
 		/* ..... Add Proportional on Measurement, if P_ON_M is specified ..... */
 		if (!uPID->POnE)
 		{
@@ -118,11 +119,12 @@ uint8_t PID_Compute(PID_TypeDef *uPID)
 			uPID->OutputSum = uPID->OutMin;
 		}
 		else { }
-		
+		uPID->DispKp_part = - uPID->Kp * dInput;
 		/* ..... Add Proportional on Error, if P_ON_E is specified ..... */
 		if (uPID->POnE)
 		{
 			output = uPID->Kp * error;
+			uPID->DispKp_part = uPID->Kp * error;
 		}
 		else
 		{
@@ -141,7 +143,7 @@ uint8_t PID_Compute(PID_TypeDef *uPID)
 			output = uPID->OutMin;
 		}
 		else { }
-		
+		uPID->DispKd_part = - uPID->Kd * dInput;
 		*uPID->MyOutput = output;
 		
 		/* ..... Remember some variables for next time ..... */
@@ -328,4 +330,18 @@ double PID_GetKi(PID_TypeDef *uPID)
 double PID_GetKd(PID_TypeDef *uPID)
 {
 	return uPID->DispKd;
+}
+
+/* ~~~~~~~~~~~~~ Get PID parts ~~~~~~~~~~~~~ */
+double PID_GetPpart(PID_TypeDef *uPID)
+{
+	return uPID->DispKp_part;
+}
+double PID_GetIpart(PID_TypeDef *uPID)
+{
+	return uPID->DispKi_part;
+}
+double PID_GetDpart(PID_TypeDef *uPID)
+{
+	return uPID->DispKd_part;
 }
