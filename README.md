@@ -41,6 +41,9 @@ PIDMode_TypeDef PID_GetMode(PID_TypeDef *uPID);
 /* :::::::::: PID Limits ::::::::::: */
 void PID_SetOutputLimits(PID_TypeDef *uPID, double Min, double Max);
 
+/* ~~~~~~~~~~~~~~~~ PID I-windup Limits ~~~~~~~~~~~~~~~~~ */
+void PID_SetILimits(PID_TypeDef *uPID, double Min, double Max)
+
 /* :::::::::: PID Tunings :::::::::: */
 void PID_SetTunings(PID_TypeDef *uPID, double Kp, double Ki, double Kd);
 void PID_SetTunings2(PID_TypeDef *uPID, double Kp, double Ki, double Kd, PIDPON_TypeDef POn);
@@ -96,6 +99,7 @@ non
   void PID_SetMode(PID_TypeDef *uPID, PIDMode_TypeDef Mode);
   void PID_SetOutputLimits(PID_TypeDef *uPID, double Min, double Max);
   void PID_SetSampleTime(PID_TypeDef *uPID, int32_t NewSampleTime);
+  void PID_SetILimits(PID_TypeDef *uPID, double Min, double Max)
   ``` 
 * Parameters:  
      * uPID : Pointer to pid struct 
@@ -109,6 +113,8 @@ non
   PID_SetMode(&TPID, _PID_MODE_AUTOMATIC);
   PID_SetSampleTime(&TPID, 500);
   PID_SetOutputLimits(&TPID, 1, 100);
+  PID_SetILimits(&TPID, 0, 20); // Set max and min I limit
+
   ``` 
   
 #### 4.  Using Compute function, for example:  
@@ -139,7 +145,8 @@ int main(void)
   PID_SetMode(&TPID, _PID_MODE_AUTOMATIC);
   PID_SetSampleTime(&TPID, 500);
   PID_SetOutputLimits(&TPID, 1, 100);
-  
+  PID_SetILimits(&TPID, -20, 20); // Set max and min I limit
+
     while (1) 
     {
   
